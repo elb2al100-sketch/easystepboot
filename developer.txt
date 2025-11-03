@@ -1,0 +1,20 @@
+/*!
+⚠️ تحذير / WARNING:
+هذا السكريبت **لا يجوز بيعه بأي شكل من الأشكال**!
+This script **MUST NOT BE SOLD** in any form!
+
+╔══════════════════════════════════════════════╗
+║                🛠️ معلومات السكريبت / SCRIPT INFORMATION           ║
+╠══════════════════════════════════════════════╣
+║ 📦 النسخة / Version    : 4.1.9                        ║
+║ 👨‍💻 المطور / Developer : Eslam Samo                   ║
+║ 🌐 الموقع / Website    : https://easystep.life        ║
+║ 📲 الرقم / Number      : +201065537938                ║
+╚══════════════════════════════════════════════╝
+
+📌 اعتبارًا من 1 نوفمبر 2025:
+أصبح سكريبت **easystepbot** رسميًا **مفتوح المصدر** ويمكن استخدامه مجانًا.
+Starting from November 1, 2025:
+The "easystepbot" script officially becomes **Open Source** and can be used for free.
+🔗 https://easystep.life
+*/

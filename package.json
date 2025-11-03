@@ -1,0 +1,78 @@
+{
+  "name": "easystepbot", // اسم المشروع / Project Name
+  "version": "4.2.6", // النسخة / Version
+  "description": "Powerful WhatsApp Bot Script with Plugin Base", 
+  // وصف المشروع / Project Description: "سكريبت بوت واتساب قوي مع دعم الإضافات"
+
+  "main": "index.js", // نقطة البداية / Main entry file
+
+  "scripts": {
+    "start": "node index.js", // لتشغيل البوت / Start the bot
+    "test": "echo \"Error: no test specified\" && exit 1" 
+    // اختبار / Test (غير مستخدم)
+  },
+
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0", // FFmpeg installer
+    "api-autoresbot": "^1.0.6", // مكتبة API autoresbot
+    "archiver": "^7.0.1", // ضغط وفك الملفات / File archiving
+    "baileys": "^6.7.18", // مكتبة WhatsApp
+    "btch-downloader": "^2.8.2", // تنزيل الفيديوهات من منصات مختلفة
+    "canvas": "^3.1.0", // لإنشاء الصور / Drawing images
+    "chalk": "^4.1.0", // لتلوين النصوص في الكونسول
+    "cheerio": "^1.0.0", // لتحليل HTML / HTML parsing
+    "chokidar": "^4.0.3", // مراقبة الملفات / File watcher
+    "crypto": "^1.0.1", // التشفير / Encryption
+    "date-fns": "^4.1.0", // مكتبة للتواريخ / Date utilities
+    "fast-levenshtein": "^3.0.0", // لحساب تشابه النصوص
+    "ffmpeg": "^0.0.4", // FFmpeg
+    "figlet": "^1.8.0", // لإنشاء نصوص ASCII
+    "file-type": "^16.5.3", // تحديد نوع الملفات
+    "fluent-ffmpeg": "^2.1.3", // FFmpeg fluent API
+    "form-data": "^4.0.1", // إرسال البيانات على شكل forms
+    "fs-extra": "^11.3.0", // وظائف إضافية للملفات / Extra FS utilities
+    "glob": "^10.4.5", // البحث عن الملفات / File matching
+    "google-it": "^1.6.4", // بحث جوجل / Google search
+    "javascript-obfuscator": "^4.1.1", // تشفير الأكواد / Obfuscate JS
+    "jimp": "^0.16.13", // تحرير الصور / Image manipulation
+    "module-alias": "^2.2.3", // اختصارات المسارات / Path alias
+    "moment": "^2.30.1", // التعامل مع التواريخ / Dates
+    "moment-timezone": "^0.5.46", // دعم المناطق الزمنية / Timezones
+    "node-fetch": "^2.7.0", // طلبات HTTP / HTTP requests
+    "node-schedule": "^2.1.1", // جدولة المهام / Scheduling
+    "node-webpmux": "^3.2.0", // التعامل مع ملفات WebP
+    "path": "^0.12.7", // التعامل مع المسارات / Paths
+    "pino": "^9.4.0", // تسجيل الأحداث / Logging
+    "qrcode": "^1.5.4", // إنشاء QR code
+    "qrcode-reader": "^1.0.4", // قراءة QR code
+    "qrcode-terminal": "^0.12.0", // عرض QR في الكونسول
+    "sharp": "^0.32.6", // تحرير الصور عالي الأداء
+    "ssh2": "^1.16.0", // SSH client
+    "unzipper": "^0.12.3", // فك ضغط الملفات / Unzip
+    "uuid": "^11.1.0", // توليد UUIDs
+    "wa-sticker-formatter": "^4.4.4", // إنشاء ملصقات واتساب
+    "whois": "^2.14.2", // معلومات عن الدومينات / Domain info
+    "winston": "^3.17.0", // تسجيل الأحداث / Logging
+    "winston-daily-rotate-file": "^5.0.0", // تدوير ملفات السجل يوميًا
+    "yt-search": "^2.12.1" // البحث في YouTube
+  },
+
+  "engines": {
+    "node": ">=14.0.0" // متطلبات Node.js
+  },
+
+  "author": "easystepbot", // المطور / Author
+  "license": "ISC", // رخصة المشروع / License
+
+  "_moduleAliases": {
+    "@lib": "./lib", // مكتبة الكود الرئيسية / Main lib
+    "@scrape": "./lib/scrape", // ملفات السحب / Scraping
+    "@games": "./lib/games", // ملفات الألعاب / Games
+    "@config": "./config.js", // ملف إعدادات البوت / Bot config
+    "@mess": "./strings.js", // رسائل البوت / Bot messages
+    "@tmpDB": "./database/temporary_db", // قاعدة بيانات مؤقتة / Temporary DB
+    "@DB": "./database", // قاعدة البيانات / Main DB
+    "@assets": "./database/assets", // ملفات الموارد / Assets
+    "@audio": "./database/audio" // ملفات الصوت / Audio files
+  }
+}
