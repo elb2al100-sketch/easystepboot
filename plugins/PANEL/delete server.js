@@ -1,0 +1,60 @@
+const config = require("@config");
+const { deleteServer, saveServer } = require("@lib/panel");
+
+async function handle(sock, messageInfo) {
+    const { remoteJid, message, content, prefix, command } = messageInfo;
+
+    try {
+        // Validate input content / التحقق من محتوى الإدخال
+        if (!content || isNaN(content) || Number(content) <= 0) {
+            await sock.sendMessage(remoteJid, {
+                text: `_Example / مثال: *${prefix + command} 1*_ (Use server ID / استخدم رقم السيرفر)`
+            }, { quoted: message });
+            return;
+        }
+
+        // Input valid, send reaction / إدخال صحيح، إرسال رد فعل
+        await sock.sendMessage(remoteJid, { react: { text: "🤌🏻", key: message.key } });
+
+        // Call deleteServer function / استدعاء دالة حذف السيرفر
+        const result = await deleteServer(Number(content));
+
+        if (result) {
+            // Save server data after deletion / حفظ بيانات السيرفر بعد الحذف
+            await saveServer(); 
+        }
+
+        // Send success response / إرسال رسالة نجاح
+        await sock.sendMessage(remoteJid, {
+            text: `✅ Server successfully deleted / تم حذف السيرفر بنجاح`
+        }, { quoted: message });
+
+    } catch (error) {
+        console.error("Error in handle function:", error);
+
+        // Collect error messages if available / جمع رسائل الخطأ إذا كانت متاحة
+        let errorMessage = "❌ An error occurred while deleting the server / حدث خطأ أثناء حذف السيرفر.\n";
+        if (error.errors && Array.isArray(error.errors)) {
+            errorMessage += "\n";
+            error.errors.forEach(err => {
+                errorMessage += `- ${err.detail}\n`;
+            });
+        }
+
+        // Send error message to user / إرسال رسالة الخطأ للمستخدم
+        try {
+            await sock.sendMessage(remoteJid, {
+                text: errorMessage.trim()
+            }, { quoted: messageInfo?.message });
+        } catch (sendError) {
+            console.error("Error sending error message:", sendError);
+        }
+    }
+}
+
+module.exports = {
+    handle,
+    Commands    : ['delserver','deleteserver'], // Command triggers / كلمات الأمر
+    OnlyPremium : false,  // Not limited to premium / غير مقتصر على المميزين
+    OnlyOwner   : true,   // Owner-only command / مقتصر على المالك
+};
