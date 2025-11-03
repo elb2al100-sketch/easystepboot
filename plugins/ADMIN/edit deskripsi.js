@@ -1,0 +1,60 @@
+// Change Group Description
+// تغيير وصف المجموعة
+const mess = require("@mess");
+// Message templates / قوالب الرسائل
+const { getGroupMetadata } = require("@lib/cache");
+// Function to get group metadata / دالة للحصول على بيانات المجموعة
+
+async function handle(sock, messageInfo) {
+    const { remoteJid, isGroup, message, sender, content, prefix, command } = messageInfo;
+    if (!isGroup) return; // Only for groups / مخصص للمجموعات فقط
+
+    try {
+        // Get group metadata / الحصول على بيانات المجموعة
+        const groupMetadata = await getGroupMetadata(sock, remoteJid);
+        const participants = groupMetadata.participants;
+
+        // Check if sender is admin / التحقق مما إذا كان المرسل مسؤول
+        const isAdmin = participants.some(participant => participant.id === sender && participant.admin);
+        if (!isAdmin) {
+            await sock.sendMessage(remoteJid, { text: mess.general.isAdmin }, { quoted: message });
+            return;
+        }
+
+        // Validate input / التحقق من صحة المحتوى
+        if (!content.trim() || content.trim() === '') {
+            return await sock.sendMessage(
+                remoteJid,
+                { text: `_⚠️ Usage Format:_ \n\n_💬 Example:_ _*${prefix + command} new description*_ \n_⚠️ صيغة الاستخدام: *_${prefix + command} وصف جديد_*` },
+                { quoted: message }
+            );
+        }
+
+        // Update group description / تحديث وصف المجموعة
+        await sock.groupUpdateDescription(remoteJid, content);
+
+        // Send success message / إرسال رسالة نجاح
+        await sock.sendMessage(
+            remoteJid,
+            { text: `✅ _Group Description Successfully Updated_\n✅ _تم تحديث وصف المجموعة بنجاح_\n\n${content}` },
+            { quoted: message }
+        );
+
+    } catch (error) {
+        console.error("Error in edit description command:", error);
+
+        // Send error message / إرسال رسالة خطأ
+        await sock.sendMessage(
+            remoteJid,
+            { text: '⚠️ An error occurred while trying to update the group description. Make sure the format is correct and you have permission.\n⚠️ حدث خطأ أثناء محاولة تغيير وصف المجموعة. تأكد من صحة الصيغة وأن لديك الصلاحيات.' },
+            { quoted: message }
+        );
+    }
+}
+
+module.exports = {
+    handle,
+    Commands    : ['editdesk', 'editdeskripsi'], // Command aliases / أسماء الأوامر
+    OnlyPremium : false, // Available for all users / متاح لجميع المستخدمين
+    OnlyOwner   : false, // Not restricted to owner / ليس مقتصرًا على المالك
+};
